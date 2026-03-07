@@ -148,3 +148,29 @@ if (mobileMenuBtn && navLinks) {
         });
     });
 }
+
+// Active Menu State on Scroll
+const sections = document.querySelectorAll('section, header');
+const navItems = document.querySelectorAll('.nav-links a');
+
+window.addEventListener('scroll', () => {
+    let current = '';
+
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (scrollY >= (sectionTop - sectionHeight / 3)) {
+            current = section.getAttribute('id');
+        }
+    });
+
+    navItems.forEach(a => {
+        a.classList.remove('active');
+        if (a.getAttribute('href') === `#${current}`) {
+            a.classList.add('active');
+        }
+    });
+});
+
+// Trigger scroll on load to set initial active state
+window.dispatchEvent(new Event('scroll'));

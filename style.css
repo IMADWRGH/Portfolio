@@ -5,6 +5,7 @@
     --secondary-color: #33a6f9;
     --gray-color: #dcd9d9;
     --bg-color: #ecf0f3;
+    --active-color: #88bce0;
 }
 
 html {
@@ -135,8 +136,11 @@ header .navbar nav ul a {
     align-items: center;
 }
 
-header .navbar nav ul a:hover {
-    color: #76b4e0;
+header .navbar nav ul a:hover,
+header .navbar nav ul a.active {
+    color: var(--active-color);
+    font-size: 22px;
+    transition: all 0.3s ease;
 }
 
 /* Mobile Menu Toggle Button */
