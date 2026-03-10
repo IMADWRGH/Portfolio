@@ -174,3 +174,106 @@ window.addEventListener('scroll', () => {
 
 // Trigger scroll on load to set initial active state
 window.dispatchEvent(new Event('scroll'));
+
+// --- GSAP Animations ---
+document.addEventListener("DOMContentLoaded", function () {
+    // Register ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
+
+    // 1. Animate About Section
+    gsap.from('#about .col-1 img', {
+        scrollTrigger: {
+            trigger: "#about",
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+        },
+        x: -100,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out"
+    });
+
+    gsap.from('#about .col-2', {
+        scrollTrigger: {
+            trigger: "#about",
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+        },
+        x: 100,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out"
+    });
+
+    // 2. Animate Skills Cards (Flip Cards)
+    const skillCards = gsap.utils.toArray('#skills .flip-card');
+    skillCards.forEach((card, i) => {
+        gsap.from(card, {
+            scrollTrigger: {
+                trigger: card,
+                start: "top 85%",
+                toggleActions: "play none none reverse"
+            },
+            scale: 0.5,
+            opacity: 0,
+            duration: 0.8,
+            ease: "back.out(1.5)"
+        });
+    });
+
+    // 3. Animate Projects
+    gsap.from('#projects .item', {
+        scrollTrigger: {
+            trigger: "#projects .rows",
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+        },
+        y: 60,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2, // Animate one after another
+        ease: "power2.out"
+    });
+
+    // 4. Animate Contact Cards
+    const contactCards = gsap.utils.toArray('#contact .contact-card');
+    contactCards.forEach((card, i) => {
+        gsap.from(card, {
+            scrollTrigger: {
+                trigger: "#contact .contact-cards",
+                start: "top 85%",
+                toggleActions: "play none none reverse"
+            },
+            scale: 0.8,
+            y: 50,
+            opacity: 0,
+            duration: 0.6,
+            delay: i * 0.15, // Stagger effect
+            ease: "power2.out"
+        });
+    });
+
+    // 5. Animate Header Elements
+    const tl = gsap.timeline();
+    
+    tl.from('header .navbar', {
+        y: -100,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out"
+    })
+    .from('.header-content .content-text > *', {
+        x: -50,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.15,
+        ease: "power2.out", /* Animates text elements sequentially */
+        clearProps: "opacity,transform" // Prevents GSAP from overriding inline-block display
+    }, "-=0.4")
+    .from('.header-content > img', {
+        scale: 0.8,
+        opacity: 0,
+        duration: 0.8,
+        ease: "back.out(1.5)"
+    }, "-=0.6");
+});
